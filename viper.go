@@ -11,8 +11,6 @@ func initViper() {
 	// 确保viper最先被init
 	viper.SetConfigName("config")
 	viper.SetDefault("runtime.goroutine_num", 30000)
-	viper.SetDefault("runtime.udp_read_size", 65507)
-	viper.SetDefault("runtime.dial_timeout_ms", 1000)
 	cwd, err := os.Getwd()
 	if err != nil {
 		logrus.Error("get work dir error:", err)
