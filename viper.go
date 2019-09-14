@@ -3,6 +3,7 @@ package netpro
 import (
 	"os"
 
+	"github.com/fsnotify/fsnotify"
 	"github.com/sirupsen/logrus"
 	"github.com/spf13/pflag"
 	"github.com/spf13/viper"
@@ -31,4 +32,8 @@ func initViper() {
 		logrus.Fatal("viper read in config error:", err)
 	}
 	logrus.Debugf("loaded %s in %s\n", *configName, *configPath)
+	viper.WatchConfig()
+	viper.OnConfigChange(func(e fsnotify.Event) {
+		logrus.Info("Config file changed:", e.Name)
+	})
 }
