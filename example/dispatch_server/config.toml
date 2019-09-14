@@ -1,0 +1,23 @@
+[server]
+num = 1
+port = 9990  # 服务运行端口
+pprof = true    # 是否开启pprof server
+
+[pprof]
+addr = ":6060"  # pprof server运行地址
+
+[log]
+level = "debug" # 日志级别
+format = "json" # 日志格式
+output = "stdout"   # 日志输出
+
+[runtime]
+goroutine_num = 30000  # 处理数据的goroutine数量
+udp_read_size = 65507   # udp接收读取数据的大小 max=65507
+dial_timeout_ms = 1000  # dial超时时间
+handler = "dc"  # handler类型 dc|dispatch
+
+[l5]
+    [l5.logacc]
+        mod = 1466241
+        cmd = 196608

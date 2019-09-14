@@ -1,0 +1,17 @@
+syntax = "proto2";
+package dispatch_pb;
+
+message COMM_PKG
+{
+    required int32 pkg_type = 1;
+    required bytes real_pkg = 2;
+}
+
+message LOG_DATA_PKG
+{
+    required string dataid = 1;
+    required uint32 timestamp = 2;
+    required string clientip = 3;
+    required bytes logmsg = 4;
+}
+
