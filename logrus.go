@@ -2,6 +2,7 @@ package netpro
 
 import (
 	"os"
+	"path/filepath"
 	"strings"
 	"syscall"
 
@@ -27,7 +28,15 @@ func initLogrus() {
 	}
 
 	if strings.ToLower(viper.GetString("log.output")) == "file" {
-		file, err := os.OpenFile(viper.GetString("log.filename"), os.O_CREATE|os.O_WRONLY, 0666)
+		logFilename := viper.GetString("log.filename")
+		logFilepath, err := filepath.Abs(filepath.Dir(logFilename))
+		if err != nil {
+			logrus.Fatal("get logfilename abspath error:", err)
+		}
+		if err := os.MkdirAll(logFilepath, os.ModeDir); err != nil {
+			logrus.Fatal("mkdir all for logfilepath error:", err)
+		}
+		file, err := os.OpenFile(logFilename, os.O_CREATE|os.O_WRONLY, 0666)
 		if err != nil {
 			logrus.Fatal("open log file error:", err)
 		}
