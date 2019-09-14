@@ -36,7 +36,7 @@ func initLogrus() {
 		if err := os.MkdirAll(logFilepath, os.ModeDir); err != nil {
 			logrus.Fatal("mkdir all for logfilepath error:", err)
 		}
-		file, err := os.OpenFile(logFilename, os.O_CREATE|os.O_WRONLY, 0666)
+		file, err := os.OpenFile(logFilename, os.O_CREATE|os.O_WRONLY|os.O_APPEND, 0666)
 		if err != nil {
 			logrus.Fatal("open log file error:", err)
 		}
