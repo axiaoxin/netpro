@@ -11,4 +11,4 @@ format = "json" # 日志格式
 output = "stdout"   # 日志输出
 
 [runtime]
-goroutine_num = 30000  # 处理数据的goroutine数量
+goroutine_num = 4096  # server处理数据的goroutine数量

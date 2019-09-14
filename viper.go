@@ -12,7 +12,7 @@ func initViper() {
 	// 确保viper最先被init
 
 	// 设置默认值
-	viper.SetDefault("runtime.goroutine_num", 30000)
+	viper.SetDefault("runtime.goroutine_num", 4096)
 
 	// 读取命令行参数
 	workdir, err := os.Getwd()
