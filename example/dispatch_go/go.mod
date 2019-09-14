@@ -1,12 +1,12 @@
-module git.code.oa.com/basic-services/dispatch
+module dispatch_go
 
 go 1.12
 
 require (
 	cloud.google.com/go v0.46.2 // indirect
-	git.code.oa.com/components/l5 v0.2.1
+	selfgit/components/l5 v0.2.1
 	github.com/alecthomas/units v0.0.0-20190910110746-680d30ca3117 // indirect
-	github.com/axiaoxin/netpro v0.0.0-20190914060315-1c124ab0e497
+	github.com/axiaoxin/netpro v0.0.0-20190914095444-a273263cda83
 	github.com/coreos/bbolt v1.3.3 // indirect
 	github.com/coreos/etcd v3.3.15+incompatible // indirect
 	github.com/coreos/go-semver v0.3.0 // indirect

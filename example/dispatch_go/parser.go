@@ -12,7 +12,8 @@ import (
 	"github.com/axiaoxin/netpro"
 	"github.com/pkg/errors"
 
-	"git.code.oa.com/basic-services/dispatch/dispatch_pb"
+	"dispatch_go/dispatch_pb"
+
 	"github.com/golang/protobuf/proto"
 	"github.com/spf13/viper"
 )

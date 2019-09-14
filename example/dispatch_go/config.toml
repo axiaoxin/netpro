@@ -1,0 +1,30 @@
+env = "dev" # dev|default_cluster
+
+[server]
+num = 2
+port = 9990  # 服务运行端口
+pprof = true    # 是否开启pprof server
+
+[pprof]
+addr = ":6060"  # pprof server运行地址
+
+[log]
+level = "debug" # 日志级别
+format = "json" # 日志格式
+output = "file"   # 日志输出
+filename = "../log/dispatch_go.log"
+
+[runtime]
+goroutine_num = 7500  # 处理数据的goroutine数量  注意实际运行时 goroutine_total_num = runtime.goroutine_num x server.num
+udp_read_size = 65507   # udp接收读取数据的大小 max=65507
+dial_timeout_ms = 1000  # dial超时时间
+handler = "dispatch"  # handler类型 dc|dispatch
+
+[l5]
+    [l5.logacc]
+        [l5.logacc.dev]
+            mod = 1466241
+            cmd = 196608
+        [l5.logacc.default_cluster]
+            mod = 1140993
+            cmd = 131072

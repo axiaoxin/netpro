@@ -3,10 +3,14 @@ package main
 import (
 	"log"
 	"os"
+	"strings"
 	"time"
 
-	"git.code.oa.com/components/l5"
+	"selfgit/components/l5"
+	"github.com/axiaoxin/netpro"
+	"github.com/pkg/errors"
 	"github.com/sirupsen/logrus"
+	"github.com/spf13/viper"
 )
 
 var L5Client *l5.Api
@@ -34,4 +38,20 @@ func InitL5() {
 	if err != nil {
 		logrus.Fatal("init L5Client NewApi error:", err)
 	}
+}
+
+func GetLogaccServer() (l5.Server, error) {
+	var mod int32
+	var cmd int32
+	if strings.ToLower(viper.GetString("env")) == "dev" {
+		mod = viper.GetInt32("l5.logacc.dev.mod")
+		cmd = viper.GetInt32("l5.logacc.dev.cmd")
+	}
+	if strings.ToLower(viper.GetString("env")) == "default_cluster" {
+		mod = viper.GetInt32("l5.logacc.default_cluster.mod")
+		cmd = viper.GetInt32("l5.logacc.default_cluster.cmd")
+	}
+	netpro.Logger.Debugf("logacc l5 sid = %d:%d", mod, cmd)
+	srv, err := L5Client.GetServerBySid(mod, cmd)
+	return srv, errors.Wrap(err, "l5 get server by sid error")
 }

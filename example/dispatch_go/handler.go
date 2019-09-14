@@ -28,7 +28,7 @@ func dcHandler(ctx context.Context) error {
 	}
 
 	// 转发到logacc
-	srv, err := L5Client.GetServerBySid(viper.GetInt32("l5.logacc.mod"), viper.GetInt32("l5.logacc.cmd"))
+	srv, err := GetLogaccServer()
 	if err != nil {
 		return err
 	}
@@ -63,9 +63,9 @@ func dispatchHandler(ctx context.Context) error {
 	}
 
 	// 转发到logacc
-	srv, err := L5Client.GetServerBySid(viper.GetInt32("l5.logacc.mod"), viper.GetInt32("l5.logacc.cmd"))
+	srv, err := GetLogaccServer()
 	if err != nil {
-		return errors.Wrap(err, "l5 get server by sid error")
+		return err
 	}
 	logaccAddr := fmt.Sprintf("%s:%d", srv.Ip().String(), srv.Port())
 	timeout := time.Duration(viper.GetInt("runtime.dial_timeout_ms")) * time.Millisecond
