@@ -34,6 +34,7 @@ func initViper() {
 	logrus.Debugf("loaded %s in %s\n", *configName, *configPath)
 	viper.WatchConfig()
 	viper.OnConfigChange(func(e fsnotify.Event) {
-		logrus.Info("Config file changed:", e.Name)
+		viper.ReadInConfig()
+		logrus.Info("Config file changed, readinconfig:", e.Name)
 	})
 }
