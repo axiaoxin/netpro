@@ -86,13 +86,18 @@ func (srv *UDPServer) Run(handler HandlerFunc) {
 
 func (srv *TCPServer) handleConn(conn net.Conn, handler HandlerFunc, doneChan chan struct{}) {
 	if srv.AutoCloseConn {
-		defer conn.Close()
+		defer srv.CloseConn(conn)
 	}
 	ctx := allocTCPConnCtx(conn)
 	if err := handler(ctx); err != nil {
 		Logger.Error(err)
 	}
 	<-doneChan
+}
+
+func (srv *TCPServer) CloseConn(conn net.Conn) {
+	conn.Close()
+	Logger.Info("conn closed")
 }
 
 func (srv *UDPServer) handleConn(conn *net.UDPConn, handler HandlerFunc, doneChan chan struct{}) {

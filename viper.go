@@ -29,12 +29,13 @@ func initViper() {
 	viper.AddConfigPath(*configPath)
 	err = viper.ReadInConfig()
 	if err != nil {
-		logrus.Fatal("viper read in config error:", err)
+		logrus.Error("viper read in config error:", err)
+	} else {
+		logrus.Debugf("loaded %s in %s\n", *configName, *configPath)
+		viper.WatchConfig()
+		viper.OnConfigChange(func(e fsnotify.Event) {
+			viper.ReadInConfig()
+			logrus.Info("Config file changed, readinconfig:", e.Name)
+		})
 	}
-	logrus.Debugf("loaded %s in %s\n", *configName, *configPath)
-	viper.WatchConfig()
-	viper.OnConfigChange(func(e fsnotify.Event) {
-		viper.ReadInConfig()
-		logrus.Info("Config file changed, readinconfig:", e.Name)
-	})
 }
